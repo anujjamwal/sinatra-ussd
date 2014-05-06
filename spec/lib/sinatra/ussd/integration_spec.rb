@@ -52,4 +52,18 @@ describe Sinatra::Ussd do
     expect(json_response).to eq({"message"=>"Welcome Clarke Kent\n* Back", "response"=>{"message"=>"Welcome Clarke Kent\n* Back"}, "session_id"=>"12334", "session"=>"continue", "msisdn"=>"2345678"})
 
   end
+
+  it 'should return invalid option with previous message if message not found in response map' do
+    response = post('/ussd/default/index', {'msisdn' => '2345678', 'session' => 'new', 'session_id' => '12334', 'message' => '1'}.to_json)
+
+    json_response = JSON.parse(response.body)
+    expect(json_response).to eq({'message' => "welcome to ussd app\\n1 greet", 'response' => {'message' => "welcome to ussd app\\n1 greet", 'response_map' => {'1' => '/greet'}}, 'session_id' => '12334', 'session' => 'continue', 'msisdn' => '2345678'})
+
+
+    response = post('/ussd/default/index', {'msisdn' => '2345678', 'session' => 'continue', 'session_id' => '12334', 'message' => '4'}.to_json)
+
+
+    json_response = JSON.parse(response.body)
+    expect(json_response).to eq({'notice' => 'Invalid Option', 'message' => "welcome to ussd app\\n1 greet", 'response' => {'message' => "welcome to ussd app\\n1 greet", 'response_map' => {'1' => '/greet'}}, 'session_id' => '12334', 'session' => 'continue', 'msisdn' => '2345678'})
+  end
 end

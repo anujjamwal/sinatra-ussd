@@ -6,19 +6,19 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
       use Sinatra::Ussd::Middleware::Dispatcher
 
       post '/my_url' do
-        {url: '/my_url_post'}.to_json
+        {message: '/my_url_post'}.to_json
       end
 
       post '/my_url2' do
-        {url: '/my_url_post2'}.to_json
+        {message: '/my_url_post2'}.to_json
       end
 
       post '/new' do
-        {url: '/new'}.to_json
+        {message: '/new'}.to_json
       end
 
       post '*' do
-        {url: '/not_my_url'}.to_json
+        {message: '/not_my_url'}.to_json
       end
     end
   end
@@ -38,7 +38,7 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
 
     response = post('/', request.to_json)
 
-    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/my_url_post"}, "session_id"=>"session_id", "session"=>"continue", "msisdn"=>"345678"})
+    expect(JSON.parse(response.body)).to eq({"response"=>{"message"=>"/my_url_post"}, "session_id"=>"session_id", "session"=>"continue", "msisdn"=>"345678", "message"=>"/my_url_post"})
   end
 
   it 'should route to /new url if session is new' do
@@ -54,7 +54,7 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
 
     response = post('/', request.to_json)
 
-    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/new"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
+    expect(JSON.parse(response.body)).to eq({"response"=>{"message"=>"/new"}, "message"=>"/new", "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
   end
 
   it 'should resolve text input url' do
@@ -70,7 +70,7 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
 
     response = post('/', request.to_json)
 
-    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/my_url_post"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
+    expect(JSON.parse(response.body)).to eq({"response"=>{"message"=>"/my_url_post"}, "message"=>"/my_url_post", "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
   end
 
   it 'should resolve to input if corresponding choice present in options' do
@@ -87,6 +87,6 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
 
     response = post('/', request.to_json)
 
-    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/my_url_post"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
+    expect(JSON.parse(response.body)).to eq({"response"=>{"message"=>"/my_url_post"}, "message"=>"/my_url_post", "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
   end
 end
