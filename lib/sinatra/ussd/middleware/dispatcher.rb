@@ -45,7 +45,9 @@ module Sinatra::Ussd::Middleware
         when :continue
           message = @request_body['message']
           response_map = @request_body['response']['response_map']
-          response_map[message]
+          url = response_map.fetch(message, nil)
+          url = response_map['text_input'] if response_map.fetch('text_input', nil) unless url
+          url
         else
           '/end'
       end

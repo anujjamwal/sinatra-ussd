@@ -9,6 +9,10 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
         {url: '/my_url_post'}.to_json
       end
 
+      post '/my_url2' do
+        {url: '/my_url_post2'}.to_json
+      end
+
       post '/new' do
         {url: '/new'}.to_json
       end
@@ -51,5 +55,38 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
     response = post('/', request.to_json)
 
     expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/new"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
+  end
+
+  it 'should resolve text input url' do
+    request = {
+        'message' => 'any text',
+        'session' => 'continue',
+        'response' => {
+            'response_map' => {
+                'text_input' => '/my_url'
+            }
+        }
+    }
+
+    response = post('/', request.to_json)
+
+    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/my_url_post"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
+  end
+
+  it 'should resolve to input if corresponding choice present in options' do
+    request = {
+        'message' => '0',
+        'session' => 'continue',
+        'response' => {
+            'response_map' => {
+                '0' => '/my_url',
+                'text_input' => '/my_url2'
+            }
+        }
+    }
+
+    response = post('/', request.to_json)
+
+    expect(JSON.parse(response.body)).to eq({"response"=>{"url"=>"/my_url_post"}, "session_id"=>nil, "session"=>"continue", "msisdn"=>nil})
   end
 end

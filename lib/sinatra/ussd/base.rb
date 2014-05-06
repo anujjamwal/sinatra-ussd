@@ -10,6 +10,8 @@ module Sinatra
         app.before {
           @params = ::JSON.parse(request.body.read)
         }
+
+        app.helpers Sinatra::Ussd::Helpers::Message
       end
     end
   end
