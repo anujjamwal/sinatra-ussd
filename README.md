@@ -62,3 +62,27 @@ post '/end' do
   }.to_json
 end
 ```
+
+## Aggregator Adapter
+
+The adapters are used to convert the request response to the application format. The application expects
+
+### Request format the app expects
+```json
+      {
+         'msisdn'    : 'Phone-number'
+         'message'   : 'User message',
+         'session'   : 'new' / 'continue' / 'end',
+         'session_id': 'Session Id'
+       }
+```
+
+### Response sent by the application
+```json
+      {
+         'msisdn'    : 'Phone-number'
+         'message'   : 'User message',
+         'session'   : 'new' / 'continue' / 'end',
+         'session_id': 'Session Id'
+       }
+```
