@@ -1,10 +1,12 @@
+require_relative 'string'
+
 module Sinatra
   module Ussd
     module Adapter
       autoload :Default, 'sinatra/ussd/adapter/default'
 
       def self.get(aggregator_id)
-        Kernel.const_get "Sinatra::Ussd::Adapter::#{aggregator_id.to_s.capitalize}"
+        "Sinatra::Ussd::Adapter::#{aggregator_id.to_s.capitalize}".constantize
       rescue
         nil
       end
