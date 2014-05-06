@@ -1,22 +1,3 @@
-[![Build Status](https://travis-ci.org/anujjamwal/sinatra-ussd.svg?branch=master)](https://travis-ci.org/anujjamwal/sinatra-ussd)
-
-# Sinatra::Ussd
-
-TODO: Write a gem description
-
-## Installation
-
-Add this line to your application's Gemfile:
-
-    gem 'sinatra-ussd'
-
-And then execute:
-
-    $ bundle
-
-## Example
-
-```ruby
 require 'json'
 require 'bundler'
 Bundler.require :default
@@ -61,4 +42,3 @@ post '/end' do
       'message' => "Welcome #{message}\n* Back"
   }.to_json
 end
-```

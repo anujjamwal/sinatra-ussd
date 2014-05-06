@@ -4,7 +4,7 @@ module Sinatra
       autoload :Default, 'sinatra/ussd/adapter/default'
 
       def self.get(aggregator_id)
-        "Sinatra::Ussd::Adapter::#{aggregator_id.to_s.capitalize}".constantize
+        Kernel.const_get "Sinatra::Ussd::Adapter::#{aggregator_id.to_s.capitalize}"
       rescue
         nil
       end

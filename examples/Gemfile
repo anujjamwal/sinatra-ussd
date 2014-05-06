@@ -1,0 +1,6 @@
+source 'https://rubygems.org'
+
+gem 'sinatra'
+gem 'sinatra-ussd', path: '/Users/Anuj/Personal/sinatra-ussd'
+
+gem 'pry'
