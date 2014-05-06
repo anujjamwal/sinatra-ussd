@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/anujjamwal/sinatra-ussd.svg?branch=master)](https://travis-ci.org/anujjamwal/sinatra-ussd)
+
 # Sinatra::Ussd
 
 TODO: Write a gem description
