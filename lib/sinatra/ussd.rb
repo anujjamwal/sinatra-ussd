@@ -3,7 +3,6 @@ require "sinatra/ussd/version"
 module Sinatra
   module Ussd
     autoload :Adapter, 'sinatra/ussd/adapter'
-    autoload :Helpers, 'sinatra/ussd/helpers'
 
     autoload :HashStore, 'sinatra/ussd/cache_store'
 
