@@ -1,0 +1,16 @@
+language: ruby
+cache: bundler
+
+rvm:
+  - 2.1.1
+  - 2.0.0
+  - 1.9.3
+
+script: 'bundle exec rspec'
+
+notifications:
+  email:
+    recipients:
+      - anuj.jamwal1@gmail.com
+    on_failure: change
+    on_success: never
