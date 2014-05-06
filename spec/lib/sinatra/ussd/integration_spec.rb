@@ -64,6 +64,6 @@ describe Sinatra::Ussd do
 
 
     json_response = JSON.parse(response.body)
-    expect(json_response).to eq({'notice' => 'Invalid Option', 'message' => "welcome to ussd app\\n1 greet", 'response' => {'message' => "welcome to ussd app\\n1 greet", 'response_map' => {'1' => '/greet'}}, 'session_id' => '12334', 'session' => 'continue', 'msisdn' => '2345678'})
+    expect(json_response).to eq({'message' => "Invalid Option\n\nwelcome to ussd app\\n1 greet", 'response' => {'message' => "welcome to ussd app\\n1 greet", 'response_map' => {'1' => '/greet'}}, 'session_id' => '12334', 'session' => 'continue', 'msisdn' => '2345678'})
   end
 end

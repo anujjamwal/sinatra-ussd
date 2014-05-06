@@ -5,6 +5,7 @@ module Sinatra
       def self.registered(app)
         app.use Sinatra::Ussd::Middleware::Facade
         app.use Sinatra::Ussd::Middleware::Echo
+        app.use Sinatra::Ussd::Middleware::MessageBuilder
         app.use Sinatra::Ussd::Middleware::Dispatcher
 
         app.before {
