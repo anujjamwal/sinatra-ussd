@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Sinatra::Ussd::Caching do
-  let(:cache_store) {Sinatra::Ussd::CacheStore.instance}
+  let(:cache_store) {Sinatra::Ussd::HashStore.instance}
   let(:session_id) {'kuoabioebc498g2093gr4fv932f223232'}
   let(:caching) {Sinatra::Ussd::Caching.new(cache_store)}
 

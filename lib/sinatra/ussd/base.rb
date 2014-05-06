@@ -3,7 +3,7 @@ module Sinatra
     module Base
 
       def self.registered(app)
-        cache_store = app.settings.respond_to?(:cache_store) ? app.settings.cache_store : Sinatra::Ussd::CacheStore.instance
+        cache_store = app.settings.respond_to?(:cache_store) ? app.settings.cache_store : Sinatra::Ussd::HashStore.instance
         caching = Sinatra::Ussd::Caching.new(cache_store)
 
         app.use Sinatra::Ussd::Middleware::Facade

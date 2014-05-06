@@ -1,10 +1,9 @@
-require 'singleton'
 module Sinatra::Ussd
   class Caching
     def initialize(cache_store = nil, key = 'session_id', only = ['response'])
       @key = key
       @only = only
-      @cache_store = cache_store || CacheStore.instance
+      @cache_store = cache_store || HashStore.instance
     end
 
     def populate_request(request)
@@ -21,28 +20,6 @@ module Sinatra::Ussd
       response
     rescue
       response
-    end
-  end
-
-  class CacheStore
-    include Singleton
-
-    def initialize
-      @store = {}
-    end
-
-    def get(key)
-      @store.fetch(key, '{}')
-    end
-
-    def set(key, value)
-      @store[key] = value
-    end
-
-    def get_and_clear(key)
-      value = @store.fetch(key, '{}')
-      @store.delete(key)
-      value
     end
   end
 end
