@@ -31,9 +31,9 @@ end
 
 post '/new' do
   {
-      'message' => 'Welcome to ussd app\n1 greet',
-      'response_map' => {
-          '1' => '/greet'
+      'message' => 'Welcome to ussd app',
+      'navigation' => {
+          '1' => {'url' => '/greet', 'label' => 'greet'}
       }
   }.to_json
 end
@@ -41,27 +41,28 @@ end
 post '/greet' do
   {
       'message' => 'Enter Name',
-      'response_map' => {
-          'text_input' => '/welcome'
+      'navigation' => {
+          'text_input' => {'url' => '/welcome'}
       }
   }.to_json
 end
 
 post '/welcome' do
   {
-      'message' => "Welcome #{message}\n* Back",
-      'response_map' => {
-          '*' => '/greet'
+      'message' => "Welcome #{message}",
+      'navigation' => {
+          '*' => {'url' => '/greet', 'label' => 'Back'}
       }
   }.to_json
 end
 
 post '/end' do
   {
-      'message' => "Welcome #{message}\n* Back"
+      'message' => "Bye Bye"
   }.to_json
 end
 ```
+For check out integration_spec.rb or examples
 
 ## Aggregator Adapter
 

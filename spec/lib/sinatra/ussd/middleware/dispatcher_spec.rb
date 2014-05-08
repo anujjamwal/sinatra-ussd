@@ -30,8 +30,8 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
         'session' => 'continue',
         'session_id' => 'session_id',
         'response' => {
-            'response_map' => {
-                '0' => '/my_url'
+            'navigation' => {
+                '0' => {'url' => '/my_url'}
             }
         }
     }
@@ -46,7 +46,7 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
         'message' => '0',
         'session' => 'new',
         'response' => {
-            'response_map' => {
+            'navigation' => {
                 '0' => '/my_url'
             }
         }
@@ -62,8 +62,8 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
         'message' => 'any text',
         'session' => 'continue',
         'response' => {
-            'response_map' => {
-                'text_input' => '/my_url'
+            'navigation' => {
+                'text_input' => {'url' => '/my_url'}
             }
         }
     }
@@ -78,9 +78,9 @@ describe Sinatra::Ussd::Middleware::Dispatcher do
         'message' => '0',
         'session' => 'continue',
         'response' => {
-            'response_map' => {
-                '0' => '/my_url',
-                'text_input' => '/my_url2'
+            'navigation' => {
+                '0' => {'url' => '/my_url'},
+                'text_input' => {'url' => '/my_url2'}
             }
         }
     }

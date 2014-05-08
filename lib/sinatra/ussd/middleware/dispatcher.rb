@@ -1,7 +1,7 @@
 module Sinatra::Ussd::Middleware
   class Dispatcher
-    ALLOWED_ATTRS = %w(message response session session_id notice msisdn)
-    ALLOWED_RESPONSE_ATTRS = %w(message response_map)
+    ALLOWED_ATTRS = %w(message response session session_id notice msisdn navigation)
+    ALLOWED_RESPONSE_ATTRS = %w(message navigation)
 
     def initialize(app)
       @app = app
@@ -73,9 +73,10 @@ module Sinatra::Ussd::Middleware
           '/new'
         when :continue
           message = @request_body['message']
-          response_map = @request_body['response']['response_map']
-          url = response_map.fetch(message, nil)
-          url = response_map['text_input'] if response_map.fetch('text_input', nil) unless url
+          navigation = @request_body.fetch('response', {}).fetch('navigation', {})
+          url = navigation.fetch(message, {})
+          url = url.fetch('url', nil)
+          url = navigation['text_input'].fetch('url') if navigation.fetch('text_input', nil) unless url
           url
         else
           '/end'
